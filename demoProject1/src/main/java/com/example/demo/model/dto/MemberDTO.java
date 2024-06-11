@@ -10,8 +10,8 @@ import lombok.*;
  */
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@NoArgsConstructor  // 기본 생성자
+@AllArgsConstructor // 필수 생성자
 @ToString
 public class MemberDTO {
 	// 나중에 데이터 베이스와 연결 할 모델들 작성하기
