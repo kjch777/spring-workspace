@@ -26,11 +26,11 @@
 	<button>제출하기</button>
 	</form>
 	
-	<h3>2. @RequestParam 어노테이션을 이용하여,
-	    - 낱개(단수, 독립된) 파라미터(매개변수) 를 컨트롤러에서 가져오는 방법
+	<h3>2. @RequestParam 어노테이션을 이용하기
+	    - 낱개(단수, 독립된) 의 파라미터(매개변수) 를 컨트롤러에서 가져오는 방법
 	</h3>
 	
-	<form action="연결주소값2" method="POST">
+	<form action="/param/test2" method="POST">
 		책 제 목: <input type="text" name="title"><br>
 		작 성 자: <input type="text" name="writer"><br>
 		책 가 격: <input type="number" name="price"><br>
@@ -39,5 +39,45 @@
 		<!-- 버튼 기본 타입 은 submit 이기 때문에, 생략해도 상관없다. -->
 		<button>제출하기</button>
 	</form>
+	
+	<h3>3. @RequestParam 어노테이션 이용
+		- 여러개(복수, 다수) 의 파라미터(매개변수) 를 컨트롤러에서 가져오는 방법
+	</h3>
+	<!-- checkbox 는, 선택한 여러개의 값을 가져올 수 있다. -->
+	<form action="/param/test3" method="post">
+		
+		<!-- String[] 배열 값으로 가져오기 -->
+		색상: 
+		Red <input type="checkbox" name="color" value="Red">
+		Yellow <input type="checkbox" name="color" value="Yellow">
+		Blue <input type="checkbox" name="color" value="Blue">
+		
+		<br><br>
+		
+		<!-- List<String> 리스트 값으로 가져오기 -->
+		과일:
+		Apple <input type="checkbox" name="fruit" value="Apple">
+		Orange <input type="checkbox" name="fruit" value="Orange">
+		Banana <input type="checkbox" name="fruit" value="Banana">
+		
+		<br><br>
+		
+		<!-- Map<String, Object> 맵 값으로 가져오기 -->
+		상품이름: <input type="text" name="productName"> <br>
+		유통기한: <input type="text" name="productDate"> <br>
+		
+		<button>제출하기</button>
+	</form>
+	
+	
+	<h3>4. @ModelAttribute 를 이용하여 Parameter 가져오기</h3>
+		<form action="/param/test4" method="post">
+			ID: <input type="text" name="memberID"><br>
+			PW: <input type="text" name="memberPW"><br>
+			Name: <input type="text" name="memberName"><br>
+			Age: <input type="text" name="memberAge"><br>
+			
+			<button>제출하기</button>
+		</form>
 </body>
 </html>

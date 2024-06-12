@@ -1,0 +1,127 @@
+	  body {
+        margin: 0;
+        padding: 0;
+        background-color: lightblue;
+      }
+
+      header {
+        background-color: #333;
+        color: white;
+        padding: 10px 0;
+        text-align: center;
+      }
+
+      header h1 {
+        margin: 0;
+      }
+
+      /* 네비게이션 꾸미기*/
+      nav ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      nav ul li {
+        display: inline;
+        margin: 0 10px; /*상하: 0, 좌우: 10*/
+      }
+
+      nav ul li a {
+        color: white;
+        text-decoration: none;
+      }
+
+      /* container class 꾸미기
+         class 를 꾸밀 때는 .으로 시작한다.*/
+      .container {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 20px;
+      }
+
+      /* posts class 꾸미기
+         class 를 꾸밀 때는 .으로 시작한다.*/
+      .posts {
+        flex: 2;
+        margin-right: 20px;
+      }
+      /* div posts posts 하위에 있는 article class 꾸미기*/
+      .posts .article {
+        background-color: white;
+        margin-bottom: 20px;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px #f2f2f2;
+      }
+
+      .posts .article h2 {
+        margin-top: 0;
+      }
+
+      .posts .article a {
+        color: darkslategray;
+        text-decoration: none;
+      }
+
+      /* aside class 꾸미기*/
+      .aside {
+        flex: 1;
+        background-color: white;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px #f2f2f2;
+      }
+
+      /* visitor-comments 방문자 댓글 공간 꾸미기*/
+      .visitor-comments {
+        /* 
+          flex: 
+          1: 다른 태그와 동일하게, 남은 공간을 균일하게 나눠 가지는 것
+          1: 다른 태그와 동일하게 줄어들어야 한다면, 균일하게 나눠서 같이 줄어드는 것
+          100%: 태그의 기본 크기 설정, 기본 크기를 100% 로 준 것
+          */
+        flex: 1 1 100%;
+        background-color: white;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px #f2f2f2;
+        margin-top: 20px;
+      }
+
+      .visitor-comments h2 {
+        margin-top: 0;
+      }
+
+      .visitor-comments form {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .visitor-comments label {
+        margin: 10px 0 5px; /* 상 좌우 하*/
+      }
+
+      .visitor-comments input,
+      .visitor-comments textarea {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+
+      /* .visitor-comments button 꾸미기*/
+      .visitor-comments button {
+        border: none;
+        background-color: lightblue;
+        color: aliceblue;
+        border-radius: 5px;
+        margin-top: 10px;
+        padding: 10px;
+        cursor: pointer; /* button:hover 에 작성하지 않아도 적용된다.*/
+      }
+
+      footer {
+        text-align: center;
+        padding: 20px 0;
+        background-color: #333;
+        color: aliceblue;
+      }

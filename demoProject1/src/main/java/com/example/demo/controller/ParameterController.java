@@ -1,10 +1,17 @@
 package com.example.demo.controller;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.commons.logging.Log;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.example.demo.model.dto.MemberDTO;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -83,14 +90,110 @@ public class ParameterController {
 	 		▶ required = true 인 매개변수가 null 인 경우에도, 400 Bad Request 오류가 발생한다.
 	 	
 	 	defaultValue = 매개변수 중 일치하는 name 속성값이 없을 경우에 대입할 값을 지정한다.
-	 		▶ required 가 false 일 경우 사용한다.
+	 		▶ required 가 false 일 때만 사용할 수 있다.
 	 	
 	 	400 Bad Request(잘못된 요청)
 	 		- 매개변수 불충분
 	 */
-	@PostMapping("test2")
-	public String paramTest2(/*RequestParam 은 보통 여기에 작성한다.*/) {
+	
+	/*
+	 책 제 목: <input type="text" name="title"><br>
+	 작 성 자: <input type="text" name="writer"><br>
+	 책 가 격: <input type="number" name="price"><br>
+	 출 판 사: <input type="text" name="publisher"><br> 
+	 */
+	@PostMapping("test2") // ▶ /param/test2
+	public String paramTest2(@RequestParam(/*value=*/ "title" /*, required=true*/) String title,
+			                 @RequestParam("writer") String writer,
+			                 @RequestParam("price") int price,
+			                 @RequestParam(value="publisher", defaultValue="교보문고", required=false) String publisher) {
 		log.info("문제없이 insert 가능한지 확인하기");
+		log.debug("title: " + title);
+		log.debug("writer: " + writer);
+		log.debug("price: " + price);
+		log.debug("publisher: " + publisher);
 		return "redirect:/param/main";
 	}
+	
+	/*
+	 3. @RequestParam 여러개(복수, 다수) 파라미터 가져오기
+	  		String[]
+	  		List<자료형>
+	  		Map<String, Object>
+	  
+	  	defaultValue 속성은 사용할 수 없다.
+	 */
+	@PostMapping("test3")
+	public String paramTest3(@RequestParam(value="color", required=false) String[] colorArr,
+			                 @RequestParam(value="fruit", required=false) List<String> fruitList,
+			                 @RequestParam Map<String, Object> productMap) {
+		
+		log.info("colorArr: " + Arrays.toString(colorArr));
+		log.info("fruitList: " + fruitList);
+		log.info("productMap: " + productMap);
+		// key(name 속성값) 가 중복되면, 덮어쓰기가 된다.
+		// 같은 name 속성 parameter 가 String[] 또는 List 로 저장이 되는 것은 힘들다.
+		
+		return "redirect:/param/main";
+		
+	}
+	
+	
+	/*
+	 DTO 와 VO
+	 	DTO: Data Transfer Object 의 약자로, 데이터 캡슐화를 통해 데이터를 전달하고 관리한다.
+	 	     어떠한 계층에서 다른 계층으로 데이터 전송을 하기 위해 사용한다.
+	 	     
+	 	     계층 간의 전송이란 예를 들어, html ▶ db 같은 것이다.
+	 	     
+	 	     
+	 	VO: Value Object 의 약자로, 값 자체를 표현하는 객체이다.
+	 	    한 번 값이 생성되면, 그 값을 변경할 수 없다.
+	 	    
+	 	    생성자를 통해 값을 설정하고, Setter 메서드를 제공하지는 않는다.
+	 
+	 
+	 @ModelAttribute
+	  - DTO(또는 VO) 와 같이 사용하는 어노테이션이다.
+	  - 전달받은 매개변수(Parameter) 의 name 속성 값이
+	    같이 사용되는 DTO 의 필드 이름과 같다면,
+	    자동으로 Setter 를 호출하여 필드에 값을 저장한다.
+	    
+	 [주의 사항]
+	 	- DTO 에 기본 생성자가 반드시 존재해야 한다.
+	 	- DTO 에 Setter 가 반드시 존재해야 한다.
+	 	
+	   @ModelAttribute 는 기본값이기 때문에, 생략 가능하다.
+	   @ModelAttribute 를 이용하여 값이 필드에 저장된 객체를 커맨드 객체라고 한다.
+	 */
+	
+	@PostMapping("test4")
+	public String paramTest4(/*@ModelAttribute*/MemberDTO inputMember) {
+	
+		// lombok 으로 만든 Getter Setter 로 값을 가져오거나 설정하기
+		MemberDTO mb = new MemberDTO();
+		
+		mb.getMemberID();
+		mb.getMemberPW();
+		mb.getMemberName();		
+		mb.getMemberAge(); // Getter 를 통해 나이 가져오기
+		log.info("inputMember 에 대한 get 정보 가져오기: " + inputMember.toString());
+		
+		mb.setMemberID("id01");
+		mb.setMemberPW("pw01");
+		mb.setMemberName("가나다");
+		mb.setMemberAge(0); // Setter 를 통해 나이 가져오기
+		// 굳이 따로 만들어 놓지 않아도 lombok @Getter @Setter 를 만들어 가져오기 때문에 사용 가능한 것이다.
+		
+		log.info("inputMember 에 대한 set 정보 가져오기: " + inputMember.toString());
+		
+		/*
+		 org.thymeleaf.exceptions.TemplateInputException: Error resolving template [], template might not exist or might not be accessible by any of the configured Template Resolvers
+		 
+		 ▲ return 에서 이동할 주소를 설정하지 않았을 때 발생하는 오류이다. 
+		 */
+		return "redirect:/param/main";
+		
+	}
+	
 }

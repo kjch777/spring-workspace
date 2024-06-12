@@ -15,8 +15,8 @@ import lombok.*;
 @ToString
 public class MemberDTO {
 	// 나중에 데이터 베이스와 연결 할 모델들 작성하기
-	private String memberId;
-	private String memberPw;
+	private String memberID;
+	private String memberPW;
 	private String memberName;
 	private int memberAge;
 	
