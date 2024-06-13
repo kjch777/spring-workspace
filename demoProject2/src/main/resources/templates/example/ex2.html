@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>타임리프 예제 2</title>
+</head>
+<body>
+	<h1>타임리프 예제 2</h1>
+	<h3>요청 위임된 request 에 존재하는 parameter 출력하기</h3>
+	<pre>
+		${param.key}
+		- request 에 존재하는 parameter(매개변수) 값을 얻어와서 출력
+	</pre>
+	
+	<ul>
+		<li th:text="${param.inputName}">제출된 이름</li>
+		<li th:text="${param.inputAge}">제출된 나이</li>
+		
+		<!-- 같은 name 속성 값을 가진 parameter 는, 배열로 전달 -->
+		<li th:text="${param.color}">선택된 색상</li>
+		<!-- color 로 전달 받은 값이 없다면, 빈 칸(null) 으로 보이게 된다.
+		     반복해야 될 값이 없다면 반복을 하지 않을 뿐, 특별한 오류가 보여지지는 않는다. -->
+	</ul>
+	<hr>
+	<!-- model.addAttribute("str", "<h1> 테스트 중 &times; </h1>");
+	     str 키 값으로 전달하는 ▶ <h1> 테스트 중 &times; </h1> ◀ 값이 화면에 보여지게 만들기-->
+	<h3>th:text / th:utext</h3>
+	<pre>
+		ExampleController 클래스에 작성한 <h1> 테스트 중 &times; </h1> 이 innerHTML 이다.
+		
+		th:text = "속성 값"
+		 - 해당 태그에 "속성 값" 을 내용으로 출력
+		 - 단, html 태그, 특수문자 해석 불가능(innerHTML)
+		 
+		th:utext = "속성 값"
+		 - 해당 태그에 "속성 값" 을 내용으로 출력
+		 - 단, html 태그, 특수문자 해석 가능(innerHTML)
+	</pre>
+	
+	<div>
+		<h4>th:text(HTML 태그 해석 X)</h4>
+		<th:block th:text="${str}">str</th:block>
+		<!-- 이 태그는 <h1></h1> 태그를 해석하지 않고, 
+		     <h1></h1> 태그까지 하나의 문장으로 인식하여 그대로 출력한 것이다. -->
+	</div>
+	
+	<div>
+		<h4>th:utext(HTML 태그 해석 O)</h4>
+		<th:block th:utext="${str}">str</th:block>
+		<!-- 이 태그는 <h1></h1> 태그를 해석하여, 
+		     <h1></h1> 태그 안에 있는 내용을 사용자가 볼 수 있게 화면에 출력한 것이다. -->
+	</div>
+	
+	<!-- html 파일 전체를 하나의 조각처럼 취급한다. -->
+	<!-- footer html 파일을 모두 가져와서, 일부분에 표시할 것이다. 
+	     <th:block th:replace="~{폴더명/html파일명}"></th:block>
+	-->
+	<th:block th:replace="~{Layout/footer}"></th:block>
+</body>
+</html>
