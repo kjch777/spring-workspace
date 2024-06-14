@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title></title>
+<style>
+.red {
+	color: red;
+}
+
+.green {
+	color: green;
+}
+
+.deco {
+
+	text-decoration: underline;
+	
+}
+</style>
+</head>
+<body>
+	<h1>타임리프 예제 5</h1>
+	<h3>th:inline = "javascript" 속성</h3>
+	<pre>
+		- script 에 작성하는 속성이다.
+		- 타임리프 문법으로 출력된 내용 또는 값을, JS 에 알맞은 타입으로 변환해보기
+	</pre>
+	
+	<h3 id="message"></h3>
+	<h3 id="num1"></h3>
+	<script th:inline="javascript">
+		// JS Inline
+		// - html 파일 실행 시, JS 내부 타임리프 코드 오류를 발생하지 않게 해준다.
+		// 또한, html 문법 오류도 해결해준다.
+		const message = "message값"; /* ${message} */
+		document.querySelector("#message").innerText = message;
+		const num1 = "1000";
+		document.querySelector("#num1").innerText = num1;
+	</script>
+	
+	<hr>
+	
+	<h3>th:classappend 속성</h3>
+	<pre>
+		- 요소에 class 속성 값을 동적으로 추가한다.
+	</pre>
+	<h4 th:classappend="red">th(타임 리프) 를 제공하는 class(스타일 태그) append(더하기) 사용해보기</h4>
+	
+	<h4 th:classappend="green">초록색 색상 태그 실행 중</h4>
+	
+	<h4 class="red" th:classappend="deco">class 와 classappend 를 같이 사용해보기</h4>
+	<!-- class 와 classappend 는 동시에 사용 가능하다.
+	     마지막에 사용한 것으로 자동으로 덮어쓰기 되어 적용된다. -->
+	     
+	<h4 class="green" th:classappend="deco">초록색과 밑줄 동시에 적용해보기</h4>
+	
+	<h3>안전 탐색 연산자: ${객체?.필드}</h3>
+	<pre>
+		- 객체가 null 인지 판단 후, null 이 아닌 경우에 수행한다.
+ 	    
+ 	    - Controller 에 해당하는 값이 있으면 보여주고, 아니면 오류없이 건너뛰는 코드이다.
+	    
+	    - 예를 들어, 타임리프로 작성한 변수명이 Controller 에서는 이름이 다르거나 존재하지 않으면 오류가 발생한다.
+ 		  안전 탐색 연산자를 사용하면 오류 발생을 방지할 수 있다.
+	</pre>
+	
+ 		 
+ 	<h4 th:text="${std?.studentNo}">학번이 출력될 공간</h4>
+ 	<h4 th:text="${std?.studentName}">이름이 출력될 공간</h4>
+ 	
+ 	<h4 th:text="${mem?.memberNo}">멤버 번호가 출력될 공간</h4>
+ 	<h4 th:text="${mem?.memberName}">멤버 이름이 출력될 공간</h4>
+ 	<h4 th:text="${mem?.memberAge}">멤버 나이가 출력될 공간</h4>
+ 		 
+	<hr>
+	
+	<h3>sequence 를 사용하여 자동으로 번호 생성하기</h3>
+	<pre>
+		- 시작부터 끝까지 숫자로만 이루어진 번호 배열 생성
+		
+		[사용방법] ${#numbers.sequence(시작, 끝 [, step])} ◀ 숫자로 이루어진 번호의 배열을 생성한다.
+		
+		ex) 1 ~ 5 출력하려면,
+			${#numbers.sequence(1, 5)} 형식으로 작성해주면 된다.
+			
+		[시퀀스 사용 이유]
+			- 타임리프 반복문 th:each 는 향상된 for 문으로,
+			  일반 for 문의 동작을 하지 못하기 때문에 이를 해결하기 위해 사용하는 것이다.
+			  	▶ 일반 for 문이란, 시작부터 끝까지 어느정도의 간격으로 증가하여 반복할지를 설정할 수 있는 구문이다.
+			  
+		each 문을 사용하여 테스트 해보기
+			th:text 에 문자열을 넣고 싶다면, 
+			" " 를 사용하고, " " 안에 | | 를 사용하여
+			"|텍스트 ${변수명}|" 형식으로 작성해주면 된다.
+	</pre>	
+	<ul>
+		<li th:each="i : ${#numbers.sequence(1, 20, 5)}" th:text="|테스트 ${i}|"></li>
+	</ul>
+	<!-- th:each="i : ${#숫자로이루어진배열생성(시작숫자, 끝숫자, 간격)}" th:text="|테스트 ${i}|"
+	     i 로 전달받은 숫자로 이루어진 배열을, th:text="|테스트 ${i}|" 안에 있는 i 에 전달하는 것이다. -->
+	     
+	<ul>
+		<li th:each="a : ${#numbers.sequence(-10, -5, 2)}" th:text="|숫자 ${a}|"></li>
+		<!-- 간격은 생략할 수 있으며, 생략할 경우 자동으로 1씩 증가한다. -->
+	</ul>
+</body>
+</html>

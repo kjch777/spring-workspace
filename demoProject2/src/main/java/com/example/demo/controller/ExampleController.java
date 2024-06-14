@@ -116,5 +116,47 @@ public class ExampleController {
 		model.addAttribute("query", "검색어");
 		return "example/ex3";
 	}
+	
+	@GetMapping("ex4")
+	public String ex4(Model model) {
+		// 아직 std 로 전달해준 값이 없는 상태이기 때문에, th:unless 안에 작성해준 std 없음이 뜨는 것이 정상이다.
+		// ▼ 하단 코드 2줄을 작성해주면 된다.
+		StudentDTO std = new StudentDTO("1234", "신짱구", 10);
+		model.addAttribute("std", std);
+		
+		MemberDTO mem = new MemberDTO("7890", "홍길동", 15);
+		model.addAttribute("mem", mem);
+		
+		model.addAttribute("testIf", "Hello, World");
+		
+		model.addAttribute("num", 100);
+		
+		model.addAttribute("alp"); // ◀ 이렇게 비워놓게 되면, html 파일에서 th:case="*" 에 설정해 놓은 값이 화면에 출력되게 된다.
+		// 또한, 입력 값으로 대/소문자도 구분한다.
+		
+		return "example/ex4";
+	}
+	
+	@GetMapping("ex5")
+	public String ex5(Model model) {
+		model.addAttribute("message", "타임리프 + 자바스크립트 사용 예제");
+		model.addAttribute("num1");
+		
+		// 아직 std 로 어떤 값을 저장하고, 전달해준 값이 없는 상태이다. 따라서 ▼
+		StudentDTO std = new StudentDTO();
+		MemberDTO mem = new MemberDTO(); // 이 상태로만 끝내면 0 이 출력된다. 따라서 ▼
+		
+		std.setStudentNo("A01");
+		std.setStudentName("신짱구");
+		
+		mem.setMemberNo("B20");
+		mem.setMemberName("홍길동");
+		mem.setMemberAge(15);
+		
+		model.addAttribute("std", std);
+		model.addAttribute("mem", mem);
+		
+		return "example/ex5";
+	}
 
 }

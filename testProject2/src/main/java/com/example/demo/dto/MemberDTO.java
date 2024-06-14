@@ -9,8 +9,8 @@ import lombok.*;
 @ToString
 public class MemberDTO {
 
-	private String name;
-	private String phone;
-	private int age;
+	private String memberName;
+	private String memberPhone;
+	private int memberAge;
 	
 }

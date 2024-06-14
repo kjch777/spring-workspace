@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+	보통 데이터 베이스를 연결하는 코드는
+	src/main/resources/templates 하위에 mappers 라는 폴더를 만들고, 
+	mappers 안에 xml 파일을 생성한다.
+	파일명을 작성할 때는, 관련된 테이블명-mapper.xml 형식을 주로 사용한다.
+	<!Doctype 옆에 mybatis 를 설정해준다.>
+ -->
+ 
+ <!-- 작성 방법 -->
+ <select id="" resultType="결과전송">
+ 	select sql 작성
+ </select>
+ 
+ <insert id="" parameterType="넣을값가져오기">
+ 	insert sql 작성
+ </insert>
