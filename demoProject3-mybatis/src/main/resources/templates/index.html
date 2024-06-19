@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>회원 가입 하기</title>
+</head>
+<body>
+	<h1>회원가입 하고, 회원가입 한 정보를 데이터 베이스에 저장하기</h1>
+	<form th:action="@{/register}" method="post" th:object="${mem}">
+
+		<!-- 멤버넘버는 시퀀스를 사용하여 자동으로 번호가 매겨지게 설정해두었기 때문에, 여기에는 작성해주지 않아도 된다. -->
+		Name: <input type="text" th:field="*{memberName}"> <br>
+		Age: <input type="text" th:field="*{memberAge}"> <br>
+		Phone: <input type="text" th:field="*{memberPhone}"> <br>
+
+		<button>제출하기</button>
+
+	</form>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+          PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+          "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- mybatis 를 사용하면 DB 를 연결하고 값을 전달해주는 일련의 코드 작성 과정을 생략할 수 있게 만들어준다. -->          
+<mapper namespace="com.kh.mall.mapper.ProductMapper">
+	<insert id="insertProduct" parameterType="com.kh.mall.dto.Goods">
+		insert into goods (goods_id, goods_name, goods_price, goods_quantity)
+		values (goods_seq.nextval, #{goods_name}, #{goods_price}, #{goods_quantity})
+	</insert>
+	
+	<select id="getAllProduct" resultType="com.kh.mall.dto.Goods">
+		select * from goods
+	</select>
+</mapper>

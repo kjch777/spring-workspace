@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+          PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+          "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- mapper 안에 sql 문 작성하기(mapper 로 감싸기) -->
+<!-- namespace 를 이용하여, Java 에 mapper sql 실행할 id 를 작성할 Java 파일 위치를 작성해준다. -->
+<mapper namespace="com.example.demo.mappers.GoodsMappers">
+<!-- GoodsMappers 에 goods 테이블과 관련된 모든 id 작성  -->
+	
+	<!-- sql 에 값을 집어 넣을 때, Java 에서 참조한 변수명의 위치를 가져오기 위해 parameterType 에 변수명의 위치를 작성해준 것이다. -->
+	<!-- 여기서 작성한 id 와 Mapper, Service, Controller 클래스에 존재하는 모든 메서드명은 통일해주는 것이 좋다. -->
+	<insert id="insertGoods" parameterType="com.example.demo.dto.Goods">
+		<!-- sql 에 작성할 테이블: id, name, price, quantity -->
+		INSERT INTO goods(goods_id, goods_name, goods_price, goods_quantity)
+		<!-- #{dto.Goods 에 작성한 변수명} 과, sql 에 연결할 칼럼명을 각각 작성하기 -->
+		           VALUES(goods_seq.NEXTVAL, #{goodsName}, #{goodsPrice}, #{goodsQuantity})
+	
+	</insert>
+</mapper>

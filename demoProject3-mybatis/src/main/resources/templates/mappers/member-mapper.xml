@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+          PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+          "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- window ▶ preferences ▶ xml
+     download 체크 -->
+
+<!-- mapper 로 sql 작성이 어디에서부터 어디까지인지 그 범위를 설정하는 것이다.
+     namepace 는 나중에 java 파일 중에 어떤 파일로부터 DB 작성 내용을 전달받고, 전달할지 그 파일을 지정하는 것이다. -->
+<mapper namespace="com.example.demo.mapper.MemberMapper">          
+
+	<!-- id 는 나중에 MemberMapper 로 만든 interface 에 전달할 명칭이다.
+	     parameterType 은 DTO 중에서 어떤 java 파일을 가리킬지 선택하는 것이다. -->
+	<!-- 아래의 경우처럼 id 값을 insertMember 로 작성했다면, 
+	     Java 파일에서 Mapper, Service, Controller 모두 insertMember 로 통일해주는 것이 좋다.
+	     Spring Boot 는 @(어노테이션) 과 properties 에 작성한 경로를 통해 임의로 이동하기 때문에
+	     이름이 다를 경우에는 파일의 위치를 찾지 못하거나 실행이 제대로 되지 않을 수 있다. -->
+	<insert id="insertMember" parameterType="com.example.demo.dto.Member">
+		
+		<!-- DB 에 저장된 칼럼명 -->
+		insert into member(member_id, member_name, member_age, member_phone) 
+		
+		<!-- DTO 라는 폴더 하위에 작성된 Member 객체 안에 적혀있는 변수명 -->
+		values (member_seq.nextval, #{memberName}, #{memberAge}, #{memberPhone})
+	</insert>
+	
+	<!-- 마찬가지로 select update delete 도 작성할 수 있다.
+	     select 는 parameterType 이 들어가는 것이 아니라, 
+	     resultSet 을 사용하여 검색/조회한 결과를 java 에 전달한다. -->
+	
+</mapper>

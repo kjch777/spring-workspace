@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+          PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+          "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.mapper.DrinkMapper"> 
+<!-- mapper namespace 경로는 mapper.java 파일 -->
+
+	<insert id="insertDrink" parameterType="com.example.demo.dto.DrinkDTO">
+	<!-- insert parameterType 경로는 DrinkDTO.java 파일 -->
+	
+		insert into drink(drink_id, drink_name, drink_price, drink_quantity) 
+		           values(drink_seq.NEXTVAL, #{drinkName}, #{drinkPrice}, #{drinkQuantity})
+	</insert>
+</mapper>

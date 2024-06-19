@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>SELECT PAGE</title>
+</head>
+<body>
+	<h1>모든 회원 정보 조회</h1>
+	<table border="1">
+		<thead>
+			<tr>
+				<th>회원 ID</th>
+				<th>회원 이름</th>
+				<th>회원 PW</th>
+				<th>e-mail</th>
+				<th>가입 일자</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="m : ${memInfo}"> <!-- {지정해줄 새로운 이름} -->
+				<td th:text="${m.member_id}"></td> <!-- SQL 에서 불러올 DB 의 칼럼명과 이름을 같게 해주는 것이 권장된다. -->
+				<td th:text="${m.member_name}"></td>
+				<td th:text="${m.member_pw}"></td>
+				<td th:text="${m.member_email}"></td>
+				<td th:text="${m.created_at}"></td>
+			</tr>
+		</tbody>
+	</table>
+	<a href="/">메인으로 돌아가기</a>
+</body>
+</html>
