@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+          PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+          "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+          
+<!-- mapper 로 insert select update delete 등을 감싸서 전달할 Mapper.java 경로 설정하기 -->
+<mapper namespace="com.kh.mall.mapper.SACMapper">
+	
+	<!-- index 에서 보여질 Join Select 문 -->
+	<select id = "getAllSAC" resultType = "com.kh.mall.dto.SAC">
+		select s.snack_id, s.snack_name, s.snack_price, c.company_name, c.company_phone, c.company_address
+        from snacks s, company c
+        where s.company_id = c.company_id
+	</select>
+	
+	<!-- 과자 상세 페이지에 보여줄 select 문
+	     where 문을 사용하여, 특정 변수 값을 가지고 올 때,
+	     변수 값이 String 인지 int 인지 float 인지 등
+	     어떤 타입인지를 지정하고, 알려주어야 한다.
+	     사용자에게서 값을 입력받아 DB 에서 확인하거나, 저장할 때는
+	     parameterType 을 사용한다.
+	     하지만 만약 resultMap 을 사용한다면, parameterType 을 사용하지 않아도 된다.
+	     dto 와 DB 가 각각 어떤 타입을 가지고 변수명을 사용하는지, 서로 연결시켜놓은 공간이 있기 때문이다. -->
+	<select id = "getSnackById" parameterType = "int" resultType = "com.kh.mall.dto.SAC">
+		select s.snack_id, s.snack_name, s.snack_price, c.company_name, c.company_phone, c.company_address
+        from snacks s, company c
+        where s.company_id = c.company_id 
+        and where snack_id = #{snack_id}
+		<!-- 사용자가 원하는 과자 상세 보기를 클릭하면,
+		     해당하는 과자의 id 값을 가져와
+		     id 값과 일치하는 데이터를 모두 가져오겠다는 의미의 코드이다. -->
+	</select>
+	
+</mapper>

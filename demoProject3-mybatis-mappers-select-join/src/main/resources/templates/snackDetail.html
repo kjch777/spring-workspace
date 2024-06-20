@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>상세 페이지</title>
+</head>
+<body>
+	<h1>index 에서 이동하기를 클릭했을 때, 이 페이지가 열린다.</h1>
+	<div>
+		<h2>과자 상세 정보</h2>
+		<h3 th:text="${snack.snack_name}"></h3>
+		<h3 th:text="${snack.snack_price}"></h3>
+	</div>
+</body>
+</html>

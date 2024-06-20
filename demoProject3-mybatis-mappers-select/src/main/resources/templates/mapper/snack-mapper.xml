@@ -14,7 +14,7 @@
 <mapper namespace="com.kh.mall.mapper.SnacksMapper">
 	<select id="getAllSnacks" resultType="com.kh.mall.dto.Snacks">
 		SELECT snack_id, snack_name, snack_price, company_name, company_phone
-        FROM snacks JOIN company USING (company_id); <!-- ; 은 붙이지 않는다. -->
+        FROM snacks JOIN company USING (company_id) <!-- ; 은 붙이지 않는다. -->
         <!-- ; 을 붙여도 실행은 정상적으로 되는 것 같다. -->
 	</select>
 </mapper>
