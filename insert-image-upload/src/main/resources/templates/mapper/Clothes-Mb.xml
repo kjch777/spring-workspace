@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+          PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+          "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kh.mall.mapper.ClothesMapper">
+	<select id = "getAllClothes" resultType = "com.kh.mall.dto.Clothes">
+		select clothes_id as clothesId, clothes_name as clothesName, clothes_price as clothesPrice, clothes_category as clothesCategory, clothes_image_path as clothesImagePath
+		from clothes
+	</select>
+	
+	<select id = "getClothesById" resultType = "com.kh.mall.dto.Clothes" parameterType="int">
+		select clothes_id as clothesId, clothes_name as clothesName, clothes_price as clothesPrice, clothes_category as clothesCategory, clothes_image_path as clothesImagePath
+		from clothes
+		where clothes_id = #{clothes_id}
+	</select>
+	
+	<insert id = "uploadClothes" parameterType = "com.kh.mall.dto.Clothes">
+		insert into clothes (clothes_id, clothes_name, clothes_price, clothes_category, clothes_image_path)
+		values (clothes_seq.nextval, #{clothes_name}, #{clothes_price}, #{clothes_category}, #{clothes_image_path})
+	</insert>
+</mapper>

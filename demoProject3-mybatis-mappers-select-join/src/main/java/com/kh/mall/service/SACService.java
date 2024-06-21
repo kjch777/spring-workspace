@@ -23,4 +23,7 @@ public class SACService {
 		return sacMapper.getSnackById(snack_id); 
 	}
 	
+	public SAC getCompanyById(int company_id){
+		return sacMapper.getCompanyById(company_id); 
+	}
 }

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+          PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+          "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kh.mall.mapper.PigMapper">
+
+	<!-- 모든 돼지의 정보 가져오기 -->
+	<select id = "getAllPigs" resultType = "com.kh.mall.dto.Pig">
+		select * from pigs
+	</select>
+	
+	<!-- 돼지 상세 보기 ◀ id 값을 기준으로 돼지의 정보를 가져오겠다.
+	     parameterType = "id 값의 자료형이 무엇인지 작성" -->
+	<select id = "getPigById" resultType = "com.kh.mall.dto.Pig" parameterType="int">
+		select * from pigs
+		where pig_id = #{pig_id}
+	</select>
+	
+	<insert id="inputPig" parameterType="com.kh.mall.dto.Pig">
+		INSERT INTO pigs (pig_id, pig_name, pig_age, pig_image_path) 
+		VALUES (pig_seq.NEXTVAL, #{pig_name}, #{pig_age}, #{pig_image_path})
+	</insert>
+</mapper>

@@ -5,6 +5,12 @@
 <title>회사 상세 정보</title>
 </head>
 <body>
-
+	<h1>index 에서 회사 상세 보기를 클릭했을 때, 이 페이지가 열린다.</h1>
+	<div>
+		<h2>회사 상세 정보</h2>
+		<h3 th:text="${company.company_name}"></h3>
+		<h3 th:text="${company.company_phone}"></h3>
+		<h3 th:text="${company.company_address}"></h3>
+	</div>
 </body>
 </html>

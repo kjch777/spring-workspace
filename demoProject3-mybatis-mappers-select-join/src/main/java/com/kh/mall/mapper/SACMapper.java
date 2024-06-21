@@ -15,4 +15,6 @@ public interface SACMapper {
 	// 여기서는 하나의 값만 가져올 것이기 때문에 List 를 사용하지 않는다.
 	// snack_id 에 해당하는 값만 가져오겠다는 의미의 코드이다.
 	SAC getSnackById(int snack_id);
+	
+	SAC getCompanyById(int company_id);
 }

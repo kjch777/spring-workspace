@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>Upload Page</title>
+</head>
+<body>
+	<div class="container">
+		<h1>옷 업로드</h1>
+		<form action="/upload" method="post" enctype="multipart/form-data">
+			<div>
+				<label>옷 이름: </label>
+				<input type="text" th:field="${c.clothesName}" required>
+			</div>
+			<div>
+				<label>옷 가격: </label>
+				<input type="number" th:field="${c.clothesPrice}" required>
+			</div>
+			<div>
+				<label>옷 분류: </label>
+				<input type="text" th:field="${c.clothesCategory}" required>
+			</div>
+			<div>
+				<label>옷 사진: </label>
+				<input type="file" th:field="${c.clothesImagePath}" required>
+			</div>
+			<button>업로드</button>
+		</form>
+	</div>
+</body>
+</html>

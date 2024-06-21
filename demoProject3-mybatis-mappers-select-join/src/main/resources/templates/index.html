@@ -21,6 +21,7 @@
 				<th>전화 번호</th>
 				<th>회사 주소</th>
 				<th>과자 상세 보기</th>
+				<th>회사 상세 보기</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -31,10 +32,13 @@
 				<td th:text="${sac.company_phone}"></td>
 				<td th:text="${sac.company_address}"></td>
 				<td>
-					<a th:href="@{'/snack/' + ${sac.snack_id}}">이동하기</a>
+					<a th:href="@{'/snack/' + ${sac.snack_id}}">과자 상세 보기</a>
 					<!-- SQL 에서, 시작하는 id 값은 1 인데, URL 에서는 0 이 나온다면
 					     값을 제대로 가져오지 못한 것이다.
 					     0 == null -->
+				</td>
+				<td>
+					<a th:href="@{'/company/' + ${sac.company_id}}">회사 상세 보기</a>
 				</td>
 			</tr>
 		</tbody>

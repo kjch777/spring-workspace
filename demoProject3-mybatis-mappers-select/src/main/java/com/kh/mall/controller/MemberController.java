@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import com.kh.mall.dto.Member;
 import com.kh.mall.service.MemberService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 public class MemberController {
 	
@@ -21,8 +24,8 @@ public class MemberController {
 	public String getAllMember(Model model) {
 		
 		List<Member> memInfoList = memberService.getAllMember();
-		
-		model.addAttribute("meminfo", memInfoList);
+		log.info("확인: " + memInfoList);
+		model.addAttribute("memInfo", memInfoList);
 		// memberList.html 파일에서,
 		// <tr th:each="m : ${memInfo}"> 
 		// 안에 있는 이름과 같아야 한다.
