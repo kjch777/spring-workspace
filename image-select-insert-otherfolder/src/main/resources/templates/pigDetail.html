@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>상세보기</title>
+<link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+	<h1>돼지 상세 보기</h1>
+	<div class="container">
+		<!-- " '이 안은 변수의 영향을 받지 않고, 글자 그대로 띄워주는 공간이다.' " -->
+		<h1 th:text="${pig.pig_name} + ' 상세 정보'"></h1>
+		<div class="detail">
+			<img th:src="@{${pig.pig_image_path}}">
+		</div>
+		<div class="detail">
+			<span th:text="${pig.pig_name}"></span>
+		</div>
+	</div>
+</body>
+</html>
