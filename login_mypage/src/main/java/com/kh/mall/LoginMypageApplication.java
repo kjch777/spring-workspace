@@ -1,0 +1,13 @@
+package com.kh.mall;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class LoginMypageApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(LoginMypageApplication.class, args);
+	}
+
+}

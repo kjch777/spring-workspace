@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>아이 러브 스쿨</title>
+</head>
+<body>
+	<h1>내 친구 찾기</h1>
+	<form th:action="@{/search}" method="post"> <!-- get: DB 에서 가져올 때 사용한다. -->
+		<input type="text" name="keyword" placeholder="이름 또는 전화번호를 입력하세요." required>
+		<button>검색하기</button>
+	</form>
+	<div th:if="${result}">
+		<h2>검색결과</h2>
+		<ul>
+			<li th:each = "member : ${result}">
+				<p>이름 : <span th:text="${member.member_name}"></span>
+				<p>번호 : <span th:text="${member.member_phone}"></span>
+				<p>나이 : <span th:text="${member.member_age}"></span>
+			</li>
+		</ul>
+	</div>
+</body>
+</html>
