@@ -7,6 +7,10 @@
 <body>
 	<h1>정보 수정하기</h1>
 	<form th:action="@{/modifyProfile}" th:object="${member}" method="post">
+		id(회원가입 순서) 는 사용자가 변경하면 안 되기 때문에, 사용자가 수정할 수 있게 화면에 보여주지 않을 뿐,
+		member 라는 변수명에는 member_id 가 들어있다.
+		
+		id: <p th:text="*{member_id}"></p><br>
 		이름: <input type="text" th:field="*{member_name}"><br>
 		나이: <input type="number" th:field="*{member_age}"><br>
 		번호: <input type="text" th:field="*{member_phone}"><br>

@@ -7,8 +7,8 @@
 <body>
 	<h1>로그인</h1>
 	<form action="/login" method="post">
-		<input type="text" th:field="${m.username}"><br>
-		<input type="text" th:field="${m.password}"><br>
+		<input type="text" th:field="${l.username}"><br>
+		<input type="text" th:field="${l.password}"><br>
 		<button>로그인</button>
 	</form>
 	<div th:if="${error}">
