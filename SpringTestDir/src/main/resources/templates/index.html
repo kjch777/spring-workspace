@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>Ajax</title>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+	//document == html 문서에 사용자의 요청이 언제 들어올진 모르겠지만, 언제든 바로 실행할 준비를 해놓는 코드
+	$(document).ready(function() { 
+		$('#checkDup').click(function() { // checkDup 중복확인 button 을 클릭하면 실행할 동작을 작성하는 공간
+			// var: 변수자료형. input 태그의 id 명칭을 가져올 때는 앞에 #을 붙인다.
+			// 사용자가 #아이디명 에 입력한 값을 가져올 때는 value 의 줄임말인 .val() 을 사용한다.
+			//   js 변수명 = html 에서 클라이언트(사용자) 가 작성한 내용을 js 로 가져오기
+			var itemName = $('#itemName').val(); 
+			console.log("itemName: " + itemName);
+			
+			// 값을 정상적으로 가져왔다면, Ajax 를 이용하여 Controller 와 연결하고, DB 에 일치하는 값이 있는지 확인하기
+			$.ajax({ // ajax 시작
+				// 1. Controller 와 연결할(만날) URL(주소) 설정하기
+				url:'/goodsitem/check', // Controller 에서 Mapping 에 작성한(/goodsitem/check) 메서드(기능) 와 연결하기
+				type: 'GET', // @GetMapping 에 작성된 주소를 연결한다는 의미이다.
+				data: {itemName : itemName}, // itemName 대신 $('#itemName').val() 을 사용할 수도 있다.
+			 // data: {name : $('#itemName').val();}, ▲ 위 코드와 동일한 의미의 코드이다.
+				// name 이라는 명칭으로 itemName 에 담긴 값을 Controller 에 전달하겠다는 의미이다.
+				// key: name 이라는 명칭으로, 값: itemName 의 값을 가져오겠다.
+				// 만약, key 명칭도 itemName 으로 통일하고 싶다면, data: {itemName : itemName} 형식으로 작성하면 된다.
+				
+				// 만약, 확인 결과 DB 에 중복된 값이 없을 경우
+				success : function(data) {
+					console.log("data: " + data);
+					if(data.isCheck) { // Controller 에서 put 으로 가져온 isCheck 를 작성하여, true 인지 false 인지 확인하는 것
+						// alert("중복 X")
+						$('#dupMsg').text("중복 X");
+					} else {
+						// alert("중복 O")
+						$('#dupMsg').text("중복 O");
+					}
+				},
+				
+				error : function() {
+					// alert("오류 발생")
+					$('#dupMsg').text("오류 발생");
+				}
+			})
+		})
+	})
+</script>
+</head>
+<body>
+	<h1>Ajax 를 활용한 상품 중복확인</h1>
+	<label for="itemName">상품명</label>
+	<input type="text" id="itemName" name="itemName"/>
+	<button id="checkDup" type="button">중복확인</button>
+	<p id="dupMsg"></p>
+	
+	<pre>
+		Ajax 를 활용하여 Controller 에서 상품명이 DB 에 이미 존재하는지
+		실시간으로 중복확인을 할 수 있다.
+		jQuery 를 사용하지 않아도 되지만, 사용하는 것이 효율적이다.
+		코드를 단순화 해주기 때문이다.
+	</pre>
+	
+	<code>
+		-- goods_item TABLE
+		CREATE TABLE goods_item (
+    		item_id NUMBER PRIMARY KEY,
+    		item_name VARCHAR2(100) NOT NULL,
+    		item_description VARCHAR2(500)
+		);
+		
+		-- goods_item SEQUENCE
+		CREATE SEQUENCE goods_item_seq;
+	</code>
+	<h1>회원 가입하기</h1>
+	<form action="/register" method="post">
+		<label for="userEmail">이메일</label>
+		<input type="text" id="userEmail" name="userEmail" required>
+		<button type="submit">가입하기</button>
+	</form>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Duplication Check for Ajax</title>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+	$(document).ready(function() { // html 문서에서 기능을 수행할 수 있도록 대기시키는 것
+		$('#DupCheck').click(function() { // id명을 가져올 땐, 앞에 # 붙일 것
+			var htmlItemName = $('#itemName').val(); // id가 itemName 인 태그의 값을 가져오는 것
+			$.ajax({
+				url:'/itemCheck', // Controller 와 연결할 주소 값
+				type: 'GET', // DB 에서 SELECT 문을 가져오는 GET 을 사용
+				data: {controllerItemName : htmlItemName}, // htmlItemName 의 값으로는 사용자가 입력한 상품명이 들어간다.
+				success: function(res) { // res 대신 다른 명칭을 사용해도 상관없다. controller 에서의 변수명과 같기만 하면 된다.
+					if(res.isCheck) {
+						$('#DupMsg').text("중복 존재");
+					} else {
+						$('#DupMsg').text("사용 가능");	
+					}
+				},
+				error: function() { // 문제가 생겼을 때 보여질 문구
+					$('#DupMsg').text("오류 발생");
+				}
+			})
+		})
+	})
+</script>
+</head>
+<body>
+	<h1>Ajax 를 이용한 상품명 중복확인</h1>
+	<label for="itemName">상품명</label>
+	<input type="text" id="itemName" name="itemName">
+	<button id="DupCheck">중복확인</button>
+	<p id="DupMsg"></p>
+</body>
+</html>

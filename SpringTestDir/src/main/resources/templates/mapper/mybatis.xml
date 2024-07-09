@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+          PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+          "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+          
+<mapper namespace="com.kh.test.mapper.UserMapper">
+	<insert id="insertUser" parameterType="com.kh.test.dao.UserDAO">
+		INSERT INTO userMember (us_id, us_email)
+		VALUES (userMember_seq.nextval, #{usEmail})
+	</insert>
+	
+	<!-- 원래는 DTO 여야 하지만, 이미 만들어 둔게 있어서 그냥 DAO 에 합쳤다. -->
+	
+	<!-- 만약, SQL 에 작성된 칼럼명과 DTO 에 작성된 변수명이 서로 일치하지 않을 때는,
+		 SQL 칼럼명과 DTO 변수명이 서로 일치한다는 표기를 해주어야 한다.
+		 resultMap 이란, SQL 칼럼명과 DTO 모델의 변수명을 서로 연결시켜주는 연결 고리이다.
+		 column="SQL 에 작성한 칼럼명"
+		 property="DTO 에 작성한 변수명"
+		 Map 에서, primary key 는 필수적으로 id 에 작성하고, 나머지는 result 에 작성한다. -->
+	<resultMap type="com.kh.test.dao.UserDAO" id="goodsMap">
+		<id column="item_id" property="itemId"></id>
+		<result column="item_name" property="itemName"/>
+		<result column="item_description" property="itemDesc"/>
+		<result column="count(*)" property="itemCount"></result>
+	</resultMap>
+	
+	<!-- 상품명이 DB 에 이미 존재하는지 확인하는 SELECT 쿼리 
+		 parameterType="java.util.Map" 에서 java.util.Map ▼ 
+		 count(*) 가 숫자이기 때문에, Integer 숫자 객체로 변경할 수 있다.
+		 
+		 resultType: com.kh.test.dao.UserDAO 을 넣어도 되고, Map 이나 Integer 또는 String 을 넣어도 된다.
+		 parameterType: com.kh.test.dao.UserDAO 로 설정하여 일일이 맞춰준다.
+		 resultMap: 여기에는 위에서 작성한 resultMap 의 id 값(goodsMap) 을 넣어준다.
+		 
+		 resultType 과 resultMap 은 같이 사용하지 않는 것이 좋다.
+		 
+		 <select id="existsByName" resultType="java.lang.Integer" parameterType="com.kh.test.dao.UserDAO">
+		 형식으로, resultMap="goodsMap" 을 지우고 숫자 값으로 넘겨줘도 된다.
+		 -->
+	<select id="existsByName" resultType="java.lang.Integer" resultMap="goodsMap" parameterType="com.kh.test.dao.UserDAO">
+		<!-- 만약, goods_item 테이블에 동일한 상품명이 하나라도 존재한다면 count 는 1 이 된다.
+			 존재하지 않는다면 NULL -->
+		SELECT count(*)
+		FROM goods_items
+		WHERE item_name = #{itemName}
+	</select>
+</mapper>
