@@ -17,11 +17,6 @@ public class GoodsController {
 	@Autowired
 	private GoodsService goodsService;
 	
-	@GetMapping("/")
-	public String startPage() {
-		return "redirect:/";
-	}
-	
 	@ResponseBody // JSON type 으로 값을 가져오겠다.
 	@GetMapping("/itemCheck")
 	public Map<String, Object> getGoods(@RequestParam String item_name) {
