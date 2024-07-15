@@ -8,10 +8,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.kh.test.service.GoodsService;
 
-@Controller
+@RestController
 public class GoodsController {
 
 	@Autowired
@@ -19,9 +20,9 @@ public class GoodsController {
 	
 	@ResponseBody // JSON type 으로 값을 가져오겠다.
 	@GetMapping("/itemCheck")
-	public Map<String, Object> getGoods(@RequestParam String item_name) {
+	public Map<String, Object> getGoods(@RequestParam("controllerItemName") String controllerItemName) {
 		Map<String, Object> res = new HashMap();
-		boolean isCheck = goodsService.getGoods(item_name);
+		boolean isCheck = goodsService.getGoods(controllerItemName);
 		res.put("isCheck", isCheck);
 		return res;
 	}
