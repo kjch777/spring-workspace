@@ -18,6 +18,8 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
+
+
 // 설정
 @Configuration // = 컴퓨터 설정(= 구성)
 
@@ -28,7 +30,7 @@ public class DBConfig {
 
 	@Autowired
 	private ApplicationContext applicationContext; // 폴더 흐름
-	// import org.springframework.context.ApplicationContext;
+	// import org.springframework.context.ApplicationContext; 
 	
 	@Bean
 	@ConfigurationProperties(prefix = "spring.datasource.hikari")
@@ -45,11 +47,14 @@ public class DBConfig {
 		DataSource dataSource = new HikariDataSource(config);
 		return dataSource;
 	}
+	
 	// MyBatis 설정 추가
 	// SqlSessionFactory: SqlSession 을 만드는 객체
 	@Bean
 	public SqlSessionFactory sessionFactory(DataSource dataSource) throws Exception {
 		SqlSessionFactoryBean sessionFactoryBean = new SqlSessionFactoryBean();
+		
+		sessionFactoryBean.setDataSource(dataSource); // 이 코드 한 줄이 누락됐다.
 		
 		// mapper 파일이 모여있는 경로 설정
 		sessionFactoryBean.setMapperLocations(applicationContext.getResources("classpath:/mapper/**.xml")); // ** 추후 변경할 것
@@ -64,6 +69,7 @@ public class DBConfig {
 		
 		return sessionFactoryBean.getObject();
 	}
+	
 	// 기본 SQL 실행 + commit 처리 = 트랜잭션 처리
 	// commit: 파일 최종 저장
 	// SqlSessionTemplate = 기본 SQL 실행 + 트랜잭션 처리

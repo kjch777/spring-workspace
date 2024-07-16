@@ -8,5 +8,8 @@ import com.kh.dto.TodoMember;
 public interface TodoMapper {
 	int idCheck(String id);
 	
-	int signUp(TodoMember todoMember);
+	int signUp(TodoMember member);
+	
+	TodoMember login(TodoMember member); // id, pw 만 써도 되고, TodoMember 모두 써도 된다.
+	// TodoMember login(String id, String pw); // id, pw 만 써도 되고, TodoMember 모두 써도 된다.
 }
